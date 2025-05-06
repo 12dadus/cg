@@ -1,0 +1,87 @@
+Algorithm Used in the Program:
+
+1. Pre-drawing the Triangle:
+   - A triangle with three points is pre-drawn in the first quadrant, specifically with its vertices at:
+     - Point 1: (50.0, 50.0) - Left-bottom corner
+     - Point 2: (100.0, 50.0) - Right-bottom corner
+     - Point 3: (75.0, 86.6) - Top corner (equilateral triangle)
+
+2. Scaling:
+   - Scaling is a transformation that enlarges or shrinks an object by multiplying its coordinates by a scale factor (sx, sy).
+   - Formula used:
+     - x' = x * sx
+     - y' = y * sy
+     - Where (x, y) are the original coordinates, and (x', y') are the scaled coordinates.
+
+3. Rotation Around a Specific Point:
+   - In this case, the triangle is rotated around its left-bottom corner, which is at (50.0, 50.0).
+   - Rotation involves two main steps:
+     1. Translation to the origin: Subtract the coordinates of the left-bottom corner to shift the triangle to the origin.
+     2. Rotation: Apply the standard 2D rotation matrix:
+        - x' = x * cos(θ) - y * sin(θ)
+        - y' = x * sin(θ) + y * cos(θ)
+        - Where θ is the rotation angle, and (x', y') are the new coordinates after rotation.
+     3. Translate back: After rotation, the triangle is translated back by adding the left-bottom corner’s original coordinates (50.0, 50.0).
+
+4. Reflection:
+   - Reflection is a transformation that flips an object over a line (either the X-axis or Y-axis).
+   - For reflection about the X-axis: y' = -y
+   - For reflection about the Y-axis: x' = -x
+   - The other coordinate remains unchanged.
+
+5. Menu System:
+   - The program uses a GLUT-based menu system to allow the user to choose from the transformations (scale, rotate, reflect).
+   - Upon selection, the corresponding transformation is applied to the triangle.
+
+Logic Used in the Program:
+
+1. Scaling:
+   - The program prompts the user to input scale factors for the X and Y axes.
+   - Each coordinate of the triangle is then multiplied by the respective scale factor.
+   - The scaling is performed in-place on the triangle's vertices.
+
+2. Rotation:
+   - The program prompts the user to input a rotation angle.
+   - The rotation is performed around the left-bottom corner of the triangle.
+   - First, each point is translated to the origin (by subtracting the left-bottom corner’s coordinates).
+   - Then, the standard 2D rotation matrix is applied.
+   - Finally, the triangle is translated back to its original position.
+
+3. Reflection:
+   - The program prompts the user to choose whether to reflect the triangle about the X-axis or Y-axis.
+   - Based on the choice, the program flips the corresponding coordinate (X or Y) of all vertices.
+
+Theory Behind Transformations:
+
+1. Scaling:
+   - Scaling is a linear transformation that either enlarges or shrinks the object. When a scaling factor greater than 1 is used, the object enlarges; when a factor less than 1 is used, the object shrinks.
+   - Scaling can be done non-uniformly along different axes (X and Y).
+
+2. Rotation:
+   - Rotation is a geometric transformation that turns a figure about a fixed point (in this case, the left-bottom corner of the triangle).
+   - The rotation matrix for 2D points is derived from the unit circle and trigonometry.
+   - The angle of rotation is positive in the counter-clockwise direction and negative in the clockwise direction.
+
+3. Reflection:
+   - Reflection is a transformation that produces a mirror image of the object.
+   - Reflecting about the X-axis inverts the Y-coordinate, and reflecting about the Y-axis inverts the X-coordinate.
+   - Reflection is an isometric transformation, meaning the shape and size of the object remain unchanged, but the orientation is reversed.
+
+Formulas Used:
+
+1. Scaling:
+   - x' = x * sx
+   - y' = y * sy
+   - Where sx and sy are the scaling factors for the X and Y axes, respectively.
+
+2. Rotation (around a point (x0, y0)):
+   - x' = x0 + (x - x0) * cos(θ) - (y - y0) * sin(θ)
+   - y' = y0 + (x - x0) * sin(θ) + (y - y0) * cos(θ)
+   - Where x0, y0 are the coordinates of the arbitrary point of rotation (left-bottom corner), and θ is the rotation angle.
+
+3. Reflection:
+   - Reflection about the X-axis:
+     - y' = -y
+   - Reflection about the Y-axis:
+     - x' = -x
+

@@ -1,0 +1,111 @@
+ 1. Bezier Curve Algorithm
+
+ Theory:
+
+ A Bezier curve is a parametric curve that is defined by a set of control points. It is widely used in computer graphics for modeling smooth curves. The most common Bezier curves are the quadratic and cubic Bezier curves, which involve 3 or 4 control points, respectively.
+
+ Formula:
+
+For a cubic Bezier curve, the curve is defined by 4 control points $P_0, P_1, P_2, P_3$ and is expressed as:
+
+$
+B(t) = (1 - t)^3 P_0 + 3(1 - t)^2 t P_1 + 3(1 - t) t^2 P_2 + t^3 P_3
+$
+
+Where:
+
+ $t$ is the parameter that ranges from 0 to 1.
+ $P_0, P_1, P_2, P_3$ are the control points.
+ $B(t)$ is the point on the curve at a given $t$.
+
+ Algorithm:
+
+ The `getBezierPoint` function calculates the position on the Bezier curve at a specific parameter $t$, using the formula above.
+ The curve is divided into smaller segments for rendering using recursion in the `drawBezier` function. This recursive approach ensures that the curve is drawn with fine detail by subdividing it into smaller sections.
+
+ Steps:
+
+1. GetBezierPoint: Calculate the Bezier point for a given parameter $t$ using the cubic formula.
+2. DrawBezier: Recursively subdivide the Bezier curve until the desired level of detail (`depth`) is reached. Draw lines between the calculated Bezier points.
+
+---
+
+ 2. Koch Curve Algorithm
+
+ Theory:
+
+ The Koch curve is a fractal curve known for its self-similar properties. It starts with an equilateral triangle and recursively divides each line segment into smaller segments, replacing each middle third with two new segments that form a triangle.
+
+ Formula:
+
+To divide a line segment into smaller segments:
+
+1. Given two points $(x_1, y_1)$ and $(x_2, y_2)$, calculate the following:
+
+    Divide the segment into three equal parts:
+     $dx = \frac{x_2 - x_1}{3}$, $dy = \frac{y_2 - y_1}{3}
+    Points:
+
+      $A(x_1 + dx, y_1 + dy)
+      $B(x_2 - dx, y_2 - dy)
+      The peak of the triangle $C$:
+
+       $
+       C = \left(\frac{A_x + B_x}{2} - \sqrt{3} \cdot \frac{B_y - A_y}{2}, \frac{A_y + B_y}{2} + \sqrt{3} \cdot \frac{B_x - A_x}{2}\right)
+       $
+
+ Algorithm:
+
+ The `drawKoch` function recursively draws the Koch curve:
+
+  1. If the recursion depth $n$ is zero, draw a straight line between the two points.
+  2. For $n > 0$, divide the line segment into three parts and calculate the new peak point to form the triangle.
+  3. Recursively apply this process to the four new segments.
+
+ Steps:
+
+1. Divide the line segment into three equal parts.
+2. Calculate the peak point (the triangle vertex).
+3. Draw the smaller Koch curves recursively for each segment, reducing the recursion depth by 1.
+
+---
+
+ Code Overview:
+
+1. Main Function:
+
+    Initializes the GLUT environment, sets the window size, and creates the application window.
+    A menu is created with two options: Bezier and Koch.
+    Calls the `display` function to render the chosen fractal.
+
+2. Display Function:
+
+    Clears the screen and sets up the coordinate system.
+    Draws the coordinate axes.
+    Depending on the `choice` variable, either the Bezier curve or the Koch curve is drawn.
+
+3. Menu:
+
+    The `menu` function allows the user to choose between Bezier and Koch curve rendering through the right-click context menu.
+
+4. Recursive Drawing Functions:
+
+    `drawBezier`: Recursively subdivides the Bezier curve into smaller segments.
+    `drawKoch`: Recursively subdivides the Koch curve into smaller segments.
+
+---
+
+ Logic:
+
+ Both fractals use recursion to break down complex shapes into smaller, simpler parts, which are then recursively subdivided.
+ The Bezier curve involves interpolation between control points, while the Koch curve uses geometric transformations to create self-similar patterns.
+
+ Theory Behind Fractals:
+
+ Fractals are objects that exhibit self-similarity, meaning their structure is similar at any level of magnification.
+ The Koch curve and Bezier curve are examples of iterative fractals, where each iteration adds more detail and complexity.
+
+---
+
+This provides a comprehensive understanding of the algorithms, logic, and theory behind the code you've written for rendering Bezier and Koch curves using OpenGL.
+

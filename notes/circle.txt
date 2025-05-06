@@ -1,0 +1,42 @@
+Title: Bresenham Circle Drawing Algorithm - OpenGL Implementation
+
+1. THEORY:
+   - The Bresenham circle drawing algorithm is a midpoint algorithm used to determine the closest pixel to the ideal circle.
+   - It utilizes integer arithmetic instead of floating-point operations, making it faster and suitable for real-time graphics.
+   - It draws the circle using symmetry: plotting eight points for every calculated coordinate due to the circular symmetry.
+
+2. LOGIC:
+   - Start from the top point of the circle (0, r).
+   - Calculate a decision parameter (d), which helps choose between two pixel positions.
+   - If d < 0, choose East pixel; otherwise, choose South-East pixel.
+   - Use 8-way symmetry to draw all octants of the circle.
+   - Repeat until x > y.
+
+3. FORMULA:
+   - Initial decision parameter: d = 3 - 2 * r
+   - If d < 0:
+       d = d + 4 * x + 6
+     Else:
+       d = d + 4 * (x - y) + 10
+       y = y - 1
+   - x is always incremented in each step.
+
+4. ALGORITHM:
+   1. Input the radius r and center (xc, yc).
+   2. Set x = 0, y = r, d = 3 - 2r
+   3. While x <= y:
+        a. Plot 8 symmetric points using (xc, yc)
+        b. If d < 0:
+              d = d + 4x + 6
+           Else:
+              d = d + 4(x - y) + 10
+              y = y - 1
+        c. x = x + 1
+   4. End While
+
+5. IMPLEMENTATION NOTES:
+   - OpenGL function `glVertex2i(x, y)` is used to plot each pixel.
+   - `glBegin(GL_POINTS)` and `glEnd()` enclose the drawing commands.
+   - The screen is divided into 4 quadrants by drawing X and Y axes.
+   - The same circle is plotted in each quadrant with different centers using symmetry.
+

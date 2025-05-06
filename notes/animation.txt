@@ -1,0 +1,75 @@
+ 1. Windmill Animation Algorithm
+
+ Theory:
+
+ This program simulates a simple windmill animation using OpenGL. It draws the main body of the windmill and rotates its blades to simulate movement.
+ The windmill blades rotate continuously, and the movement is achieved through frame updates at regular intervals using a timer function.
+
+ Formula:
+
+ Rotation formula used for the windmill blades:
+
+   Rotation: `glRotated(frame  4, 0, 0, 1)`
+
+     This formula rotates the blades by `frame  4` degrees around the Z-axis (0, 0, 1), where `frame` is the number of frames passed since the start of the animation.
+   Scaling and Translation:
+
+     `glTranslated(x, y, z)`: Translates the windmill to a specific position.
+     `glScaled(x, y, z)`: Scales the windmill to the desired size.
+
+ Algorithm:
+
+1. drawWindmill Function:
+
+    Draws the base of the windmill using a yellow rectangle (`GL_POLYGON`).
+    Translates the windmill to the correct position for the blades.
+    Rotates the blades at an incremental angle based on the `frame` variable.
+    The rotation happens in 90-degree steps, creating the four blades of the windmill.
+
+2. display Function:
+
+    Clears the screen.
+    Sets up the windmill in different positions and scales it for variety.
+    Draws two windmills with different translations and scales using `drawWindmill`.
+    Swaps buffers to update the display.
+
+3. doFrame Function:
+
+    Increments the `frame` variable to simulate animation.
+    Calls `glutPostRedisplay()` to trigger a display update.
+    Uses `glutTimerFunc()` to update the frame every 10 milliseconds, creating continuous animation.
+
+4. init Function:
+
+    Sets the background color to black using `glClearColor`.
+    Defines the orthographic projection for the 2D drawing with `glOrtho`.
+    Sets up the modelview matrix for object transformations.
+
+5. main Function:
+
+    Initializes GLUT and creates the window.
+    Calls `init()` to set up OpenGL settings.
+    Sets up display and timer functions for animation.
+    Enters the GLUT main loop for continuous rendering.
+
+ Logic:
+
+ Frame-based Animation:
+
+   The windmill blades rotate incrementally based on the `frame` variable, which is updated every 10 milliseconds.
+   The main body of the windmill is drawn first, followed by the rotating blades. The rotating effect is achieved by rotating the blades around their center.
+   The `glPushMatrix` and `glPopMatrix` functions preserve the transformations for each windmill, ensuring that transformations for one windmill don't affect the other.
+ Timer-based Animation:
+
+   `glutTimerFunc` is used to update the animation frame periodically, providing the illusion of smooth movement.
+
+ Key OpenGL Functions:
+
+ glColor3f(r, g, b): Sets the color for drawing.
+ glBegin(GL\_POLYGON): Starts drawing a polygon.
+ glVertex2f(x, y): Defines the vertices of the polygon.
+ glTranslatef(x, y, z): Translates the object to the given position.
+ glRotated(angle, x, y, z): Rotates the object by a given angle around the axis (x, y, z).
+ glScaled(x, y, z): Scales the object by the given factors in the x, y, and z directions.
+ glPushMatrix() / glPopMatrix(): Pushes and pops the current transformation matrix, ensuring transformations are applied only to the current object.
+

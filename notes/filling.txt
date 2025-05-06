@@ -1,0 +1,65 @@
+FILLING ALGORITHMS - NOTES
+
+1. FLOOD FILL ALGORITHM
+-----------------------
+
+Theory:
+- Fills an enclosed area starting from a seed pixel.
+- Replaces all connected pixels having the same background color as the seed.
+- Commonly used in paint applications for area filling.
+
+Logic:
+- Start from a seed point.
+- If the current pixel color matches the background color:
+    - Fill the pixel with the new color.
+    - Recursively call the algorithm for neighboring pixels (up, down, left, right).
+
+Algorithm (4-connected):
+    void floodFill(int x, int y, float fillColor[3], float bgColor[3]) {
+        getPixelColor(x, y, color);
+        if (color == bgColor) {
+            setPixel(x, y, fillColor);
+            floodFill(x+1, y, fillColor, bgColor);
+            floodFill(x-1, y, fillColor, bgColor);
+            floodFill(x, y+1, fillColor, bgColor);
+            floodFill(x, y-1, fillColor, bgColor);
+        }
+    }
+
+Formula:
+- Color match check:
+    if (currentColor == bgColor)
+        → fill pixel and recurse
+
+
+2. BOUNDARY FILL ALGORITHM
+--------------------------
+
+Theory:
+- Fills an area enclosed by a boundary color.
+- Works by checking the pixel is not already filled and not a boundary.
+- Stops when it reaches the boundary.
+
+Logic:
+- Start from a seed point inside the bounded region.
+- If the pixel is not the boundary color and not already filled:
+    - Fill the pixel with the desired color.
+    - Recursively apply the algorithm to its neighbors.
+
+Algorithm (4-connected):
+    void boundaryFill(int x, int y, float fillColor[3], float boundaryColor[3]) {
+        getPixelColor(x, y, color);
+        if (color != boundaryColor && color != fillColor) {
+            setPixel(x, y, fillColor);
+            boundaryFill(x+1, y, fillColor, boundaryColor);
+            boundaryFill(x-1, y, fillColor, boundaryColor);
+            boundaryFill(x, y+1, fillColor, boundaryColor);
+            boundaryFill(x, y-1, fillColor, boundaryColor);
+        }
+    }
+
+Formula:
+- Color condition:
+    if (currentColor ≠ boundaryColor && currentColor ≠ fillColor)
+        → fill pixel and recurse
+

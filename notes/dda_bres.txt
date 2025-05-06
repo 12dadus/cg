@@ -1,0 +1,68 @@
+Line Drawing Algorithms - DDA and Bresenham
+===========================================
+
+1. DDA (Digital Differential Analyzer) Algorithm
+------------------------------------------------
+Theory:
+- DDA is a basic line drawing algorithm used in computer graphics.
+- It uses floating-point arithmetic to generate points between the start and end of a line.
+
+Logic:
+- Based on the straight-line equation: y = mx + c
+- The algorithm increments x or y by 1 depending on the slope and computes the other using the slope.
+
+Algorithm Steps:
+1. dx = x2 - x1
+2. dy = y2 - y1
+3. steps = max(abs(dx), abs(dy))
+4. xInc = dx / steps
+   yInc = dy / steps
+5. Start at (x, y) = (x1, y1)
+6. For i = 0 to steps:
+   - Plot(round(x), round(y))
+   - x = x + xInc
+   - y = y + yInc
+
+Formula:
+x_i = x_(i-1) + (dx / steps)
+y_i = y_(i-1) + (dy / steps)
+
+
+2. Bresenham’s Line Drawing Algorithm
+-------------------------------------
+Theory:
+- Bresenham’s algorithm uses only integer arithmetic.
+- Efficient for raster devices and embedded systems.
+
+Logic:
+- A decision parameter is used to choose between two pixels at each step.
+- Works by minimizing the error between the ideal line and the rasterized line.
+
+Algorithm Steps (for slope <= 1):
+1. dx = x2 - x1
+   dy = y2 - y1
+2. p = 2dy - dx
+3. Loop from x = x1 to x2:
+   - Plot(x, y)
+   - If p < 0:
+       p = p + 2dy
+     Else:
+       y = y + 1
+       p = p + 2dy - 2dx
+
+Formula:
+p_(k+1) = p_k + 2dy       (if p_k < 0)
+p_(k+1) = p_k + 2dy - 2dx (if p_k >= 0)
+
+
+3. Line Styles Used
+-------------------
+- Simple Line : Plot every pixel.
+- Dotted Line : Plot every alternate pixel. (e.g., if i % 2 == 0)
+- Dashed Line : Plot 4-6 pixels, then skip some pixels. (e.g., if i % 10 < 6)
+
+Selection:
+- Controlled using a 'style' variable (1 = Simple, 2 = Dotted, 3 = Dashed)
+- Switch between DDA and Bresenham using keyboard inputs.
+
+

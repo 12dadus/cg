@@ -1,0 +1,27 @@
+Cohen-Sutherland Line Clipping Algorithm
+
+Theory:
+The Cohen-Sutherland algorithm is used to clip lines to a rectangular window. 
+It determines if a line is completely inside, outside, or partially inside the window and clips it accordingly. 
+The line is classified using outcodes, which are 4-bit codes indicating the position of each endpoint relative to the window.
+
+Algorithm Steps:
+1. Compute Outcodes: Calculate outcodes for both endpoints based on their position relative to the clipping window.
+2. Check Accept/Reject:
+   - If both outcodes are 0, the line is fully inside the window (accept).
+   - If the bitwise AND of both outcodes is non-zero, the line is fully outside (reject).
+3. Clip Line: If one endpoint is outside, calculate the intersection of the line with the window boundary and update the endpoint.
+4. Repeat: Continue until the line is either fully inside or fully outside the window.
+
+Outcode Calculation:
+- Top: If y > ymax, set the top bit.
+- Bottom: If y < ymin, set the bottom bit.
+- Right: If x > xmax, set the right bit.
+- Left: If x < xmin, set the left bit.
+
+Formula for Clipping:
+1. Vertical Clipping (left/right boundaries):
+   y = y1 + ((y2 - y1) / (x2 - x1)) * (boundary - x1)
+2. Horizontal Clipping (top/bottom boundaries):
+   x = x1 + ((x2 - x1) / (y2 - y1)) * (boundary - y1)
+
