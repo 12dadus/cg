@@ -1,0 +1,3 @@
+mvoing a file to home - mv filename.cpp ../
+
+renaming a file - mv oldname.cpp newname.cpp
